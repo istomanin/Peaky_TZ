@@ -1,16 +1,11 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
 [SelectionBase]
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] private float MapLimit = 12.5f;
-    public static Player Instance;
-
-
-
+   
     [SerializeField] private float movingSpeed = 5f;
 
     private Rigidbody2D _rb;
@@ -22,8 +17,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-
-        Instance = this;
 
     }
 
