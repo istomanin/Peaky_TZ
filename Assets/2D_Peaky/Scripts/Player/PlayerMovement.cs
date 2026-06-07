@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [SelectionBase]
@@ -8,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
    
     [SerializeField] private float movingSpeed = 5f;
 
+
+    private float _defaultMovingSpeed;
     private Rigidbody2D _rb;
 
 
@@ -17,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-
+        _defaultMovingSpeed = movingSpeed;
     }
 
 
@@ -45,5 +48,27 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public void ApplySpeedBoost(float bonusSpeedValue)
+    {
+       StartCoroutine(SpeedBoostCoroutine(bonusSpeedValue));  
+
+    }
+
+    private IEnumerator SpeedBoostCoroutine(float bonusSpeedValue)
+    {
+        Debug.Log("Speed Boost Activated!");
+        movingSpeed *= bonusSpeedValue;
+
+        yield return new WaitForSeconds(4f);
+
+        ResetSpeed();
+    }
+
+
+    private void ResetSpeed()
+    {
+        movingSpeed = _defaultMovingSpeed;
+        Debug.Log("Speed Boost Ended. Speed Reset.");
+    }
 
 }

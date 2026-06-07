@@ -1,26 +1,38 @@
+using System;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
 
-
+    [SerializeField] private NoteUIController noteUIController;
     public PlayerMovement PlayerMovement { get; private set; }
     public HealthController HealthController { get; private set; }
 
 
     private InteractiveObject currentInteractiveObject;
 
+    private bool isEPressed;
 
+    public NoteUIController NoteUIController => noteUIController;
 
 
     private void Awake()
     {
 
         PlayerMovement = GetComponent<PlayerMovement>();
-
+       
         HealthController = GetComponent<HealthController>();
 
     }
+
+    private void Start()
+    {
+        
+        GameInput.Instance.OnPlayerPressE += PlayerPressE_performed;
+
+    }
+
+   
 
     private void Update()
     {
@@ -29,15 +41,25 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
-        if (!currentInteractiveObject.IsAutoInteract() && Input.GetKeyDown(KeyCode.E))
+        if (!currentInteractiveObject.IsAutoInteract() )
         {
-            currentInteractiveObject.Interact(this);
+
+            if (isEPressed)
+            {
+                Debug.Log("Pressed E to interact with " + currentInteractiveObject.name);
+                currentInteractiveObject.Interact(this);
+                isEPressed = false;
+            }
+           
         }
 
     }
 
 
-
+     private void PlayerPressE_performed(object sender, EventArgs e)
+    {
+        isEPressed = true;
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
