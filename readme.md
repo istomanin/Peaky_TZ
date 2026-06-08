@@ -61,6 +61,11 @@
 * Поддерживается прокрутка списка
 * История сохраняется в файловую систему в формате **JSON**
 * Данные загружаются между игровыми сессиями
+* Файл сохранения создается автоматически через Application.persistentDataPath
+
+  
+  <img width="632" height="39" alt="image" src="https://github.com/user-attachments/assets/198a4f15-6c4b-45e3-a735-6b181198d71a" />
+
 
 <p align="center">
   <img src="Assets/Media/History.gif" width="600" alt="TZ Peaky">
