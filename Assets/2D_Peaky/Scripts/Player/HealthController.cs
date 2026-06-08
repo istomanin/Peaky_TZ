@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    
+
 
     [SerializeField] private int maxHealth = 10;
+    [SerializeField] private GameOverUI GameOverUI;
+
     private int currentHealth;
 
     private void Awake()
@@ -25,6 +27,6 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Player has died.");
+        GameOverUI.ShowGameOver();
     }
 }
