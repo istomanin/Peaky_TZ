@@ -9,8 +9,11 @@ public class NoteObject : InteractiveObject
 
     public override void Interact(PlayerInteraction playerInteraction)
     {
-        Debug.Log("1");
+        playerInteraction.AddToHistory("Read a note: " + noteTitle);
+        
         playerInteraction.NoteUIController.OpenNote(noteTitle, noteText);
+
+       
 
         Destroy(gameObject);
     }

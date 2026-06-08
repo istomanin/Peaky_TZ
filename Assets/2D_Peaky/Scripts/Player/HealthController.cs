@@ -17,7 +17,6 @@ public class HealthController : MonoBehaviour
     {
         currentHealth -= damageAmount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        Debug.Log(currentHealth);
         if (currentHealth <= 0)
         {
             Die();
@@ -26,7 +25,6 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
-       
         Debug.Log("Player has died.");
     }
 }

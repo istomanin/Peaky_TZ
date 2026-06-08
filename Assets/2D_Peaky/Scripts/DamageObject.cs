@@ -10,10 +10,12 @@ public class DamageObject : InteractiveObject
 
     public override void Interact(PlayerInteraction playerInteraction)
     {
-        Debug.Log("Interact.");
-        playerInteraction.HealthController.TakeDamage(damageAmount);
-        Debug.Log("Player has taken damage.");
 
+        playerInteraction.AddToHistory("Took damage from an object!");
+        playerInteraction.HealthController.TakeDamage(damageAmount);
+      
+        
+    
         Destroy(gameObject);
     }
 

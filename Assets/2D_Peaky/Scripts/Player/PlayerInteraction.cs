@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
@@ -8,6 +9,11 @@ public class PlayerInteraction : MonoBehaviour
     public PlayerMovement PlayerMovement { get; private set; }
     public HealthController HealthController { get; private set; }
 
+
+
+
+    private List<string> history = new List<string>();
+    public List<string> History => history;
 
     private InteractiveObject currentInteractiveObject;
 
@@ -20,19 +26,18 @@ public class PlayerInteraction : MonoBehaviour
     {
 
         PlayerMovement = GetComponent<PlayerMovement>();
-       
         HealthController = GetComponent<HealthController>();
 
     }
 
     private void Start()
     {
-        
+
         GameInput.Instance.OnPlayerPressE += PlayerPressE_performed;
 
     }
 
-   
+
 
     private void Update()
     {
@@ -41,22 +46,28 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
-        if (!currentInteractiveObject.IsAutoInteract() )
+        if (!currentInteractiveObject.IsAutoInteract())
         {
 
             if (isEPressed)
             {
-                Debug.Log("Pressed E to interact with " + currentInteractiveObject.name);
                 currentInteractiveObject.Interact(this);
                 isEPressed = false;
             }
-           
+
         }
 
     }
 
+    public void AddToHistory(string entry)
+    {
+        history.Add(entry);
+        //Debug.Log("History Updated: " + entry);
+       
+    }
 
-     private void PlayerPressE_performed(object sender, EventArgs e)
+
+    private void PlayerPressE_performed(object sender, EventArgs e)
     {
         isEPressed = true;
     }

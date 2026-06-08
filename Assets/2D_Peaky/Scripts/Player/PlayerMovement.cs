@@ -6,13 +6,14 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] private float MapLimit = 12.5f;
-   
+
     [SerializeField] private float movingSpeed = 5f;
+
 
 
     private float _defaultMovingSpeed;
     private Rigidbody2D _rb;
-
+    private bool isCanMove = true;
 
     private Vector2 _inputVector;
 
@@ -31,14 +32,30 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        HandleMovment();
+        if (isCanMove)
+        {
+            HandleMovment();
+        }
+    }
+    public void ApplySpeedBoost(float bonusSpeedValue)
+    {
+        StartCoroutine(SpeedBoostCoroutine(bonusSpeedValue));
 
     }
 
+    public void DisableMovement()
+    {
+        isCanMove = false;
+    }
+
+    public void EnableMovement()
+    {
+        isCanMove = true;
+    }
 
     private void HandleMovment()
     {
-         Vector2 targetPosition =_rb.position +_inputVector *(movingSpeed * Time.fixedDeltaTime);
+        Vector2 targetPosition = _rb.position + _inputVector * (movingSpeed * Time.fixedDeltaTime);
 
         targetPosition.x = Mathf.Clamp(targetPosition.x, -MapLimit, MapLimit);
 
@@ -48,15 +65,11 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    public void ApplySpeedBoost(float bonusSpeedValue)
-    {
-       StartCoroutine(SpeedBoostCoroutine(bonusSpeedValue));  
 
-    }
 
     private IEnumerator SpeedBoostCoroutine(float bonusSpeedValue)
     {
-        Debug.Log("Speed Boost Activated!");
+        
         movingSpeed *= bonusSpeedValue;
 
         yield return new WaitForSeconds(4f);
@@ -68,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
     private void ResetSpeed()
     {
         movingSpeed = _defaultMovingSpeed;
-        Debug.Log("Speed Boost Ended. Speed Reset.");
+       
     }
 
 }

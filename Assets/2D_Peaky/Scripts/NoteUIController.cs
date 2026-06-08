@@ -9,7 +9,7 @@ public class NoteUIController : MonoBehaviour
 
     [SerializeField] private TMP_Text  title;
 
-    [TextArea]
+  
     [SerializeField] private TMP_Text text;
 
 
@@ -27,16 +27,10 @@ public class NoteUIController : MonoBehaviour
     public void OpenNote(string noteTitle, string noteText)
     {
 
-        Debug.Log("2");
         notePanel.SetActive(true);
-        Time.timeScale = 0f; // Pause the game
-
-
+        playerInteraction.PlayerMovement.DisableMovement();
         title.text = noteTitle;
         text.text = noteText;
-
-
-
 
     }
 
@@ -44,6 +38,6 @@ public class NoteUIController : MonoBehaviour
     public void CloseNote()
     {
         notePanel.SetActive(false);
-        Time.timeScale = 1f; // Resume the game
+        playerInteraction.PlayerMovement.EnableMovement();
     }
 }
